@@ -23,8 +23,8 @@ class MyDrawer extends StatelessWidget {
 
           const SizedBox(height: 25),
 
-          // Shop tile 
-          MyListTile(icon: Icons.home, text: "Shop", onTap: () {}),
+          // Shop tile
+          MyListTile(icon: Icons.home, text: "Shop", onTap: ()=> Navigator.pop(context)),
 
           // Cart tile
           MyListTile(icon: Icons.shopping_cart, text: "Cart", onTap: () {}),
