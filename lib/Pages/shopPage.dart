@@ -9,56 +9,49 @@ class ShopPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //access products in shop
     final products = context.watch<Shop>().shop;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        foregroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text("Shop Page"),
-        //go to cart button
-     actions: [
-  IconButton(
-    onPressed: () => Navigator.pushNamed(context, '/cart_page'),
-    icon: Icon(Icons.shopping_cart_outlined),
-  ),
-],
-
+        foregroundColor: Theme.of(context).colorScheme.primary,
+        title: const Text("Shop"),
+        actions: [
+          IconButton(
+            onPressed: () => Navigator.pushNamed(context, '/cart_page'),
+            icon: const Icon(Icons.shopping_cart),
+          ),
+        ],
       ),
       drawer: const MyDrawer(),
       backgroundColor: Theme.of(context).colorScheme.surface,
-
-      body: ListView(
-        children: [
-          const SizedBox(height: 25,),
-          //shop title
-          Center(
-            child:
-             Text("Pick from a selected list of premium products",
-             style: TextStyle(
-              color: Theme.of(context).colorScheme.inversePrimary,
-             ),
-             )
-             ),
-
-          //shop subtitle
-
-          //product List
-          SizedBox(
-            height: 550,
-            child: ListView.builder(
-              itemCount: products.length,
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.all(15),
-              itemBuilder: (context, index) {
-                final product = products[index];
-                //return as product tile UI
-                return MyProductTile(product: product);
-              },
+      body: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Discover Premium Products",
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
             ),
-          ),
-        ],
+            const SizedBox(height: 10),
+            Expanded(
+              child: ListView.builder(
+                itemCount: products.length,
+                scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.only(top: 15),
+                itemBuilder: (context, index) {
+                  final product = products[index];
+                  return MyProductTile(product: product);
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

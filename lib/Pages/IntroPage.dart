@@ -9,39 +9,44 @@ class IntroPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            //logo
-            Icon(
-              Icons.shopping_bag,
-              size: 72,
-              color: Theme.of(context).colorScheme.inversePrimary,
-            ),
-            const SizedBox(height: 25),
-            //title
-            const Text(
-              "Minimal Shop",
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-
-            const SizedBox(height: 10),
-
-            //subtitle
-            Text(
-              "Premium quality products",
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.inversePrimary,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.shopping_bag,
+                size: 100,
+                color: Theme.of(context).colorScheme.primary,
               ),
-            ),
-
-            const SizedBox(height: 25),
-            //button
-            MyButton(
-              onTap: () => Navigator.pushNamed(context, '/shop_page'),
-              child: Icon(Icons.arrow_forward),
-            ),
-          ],
+              const SizedBox(height: 30),
+              Text(
+                "Minimal Shop",
+                style: TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
+              ),
+              const SizedBox(height: 15),
+              Text(
+                "Premium Quality Products",
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 40),
+              MyButton(
+                onTap: () => Navigator.pushNamed(context, '/shop_page'),
+                child: const Text(
+                  "Start Shopping",
+                  style: TextStyle(fontSize: 16, color: Colors.white),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

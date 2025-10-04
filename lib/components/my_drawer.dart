@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'my_list_tile.dart'; // import your custom tile
+import 'my_list_tile.dart'; 
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
@@ -36,11 +36,19 @@ class MyDrawer extends StatelessWidget {
             text: "Cart",
             onTap: () {
               //first pop drawer
-
               Navigator.pop(context);
-
               //go to cart page
               Navigator.pushNamed(context, '/cart_page');
+            },
+          ),
+
+          // Settings tile
+          MyListTile(
+            icon: Icons.settings,
+            text: "Settings",
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, '/settings_page');
             },
           ),
 

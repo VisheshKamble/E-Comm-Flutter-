@@ -1,107 +1,121 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/models/shop.dart';
 import 'package:myapp/models/product.dart';
+import 'package:myapp/models/shop.dart';
 import 'package:provider/provider.dart';
 
+class MyProductTile extends StatelessWidget {
+  final Product product;
+  const MyProductTile({super.key, required this.product});
 
-class MyProductTile extends StatelessWidget{
-  final Product product ;
-  const MyProductTile({super.key , required this.product});
-
-  //add to cart button pressed
-
-  void addToCart(BuildContext context){
-    //show dialog box to confirm user to add to cart
-    showDialog(context: context,
-     builder: (context) => AlertDialog(
-      content: Text("Add this item to your cart?"),
-      actions: [
-        //cancel button
-        MaterialButton(onPressed: ()=> Navigator.pop(context),
-        child: Text("Cancel"),
-        ),  
-
-        //add button
-         MaterialButton(onPressed: ()  {
-         //pop the dialog box 
-          Navigator.pop(context);
-          //add to the cart
-          context.read<Shop>().addToCart(product);
-         },
-        child: Text("Yes"),
-     )],
-     ));
+  void addToCart(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text("Add to Cart"),
+        content: Text("Add ${product.name} to your cart?"),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text("Cancel"),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              context.read<Shop>().addToCart(product);
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text("Added to cart!")),
+              );
+            },
+            child: const Text("Yes"),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-   return Container(
-    decoration: BoxDecoration(
-    color: Theme.of(context).colorScheme.primary,
-    borderRadius: BorderRadius.circular(12),
-    ),
-    margin: const EdgeInsets.all(10),
-    padding : const EdgeInsets.all(25),
-    width: 300,
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        
-        //image
-        Column(
+    return Padding(
+      padding: const EdgeInsets.only(right: 15),
+      child: Container(
+        width: 250,
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.surface,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 12,
+              offset: const Offset(0, 6),
+            ),
+          ],
+        ),
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-          
-          AspectRatio(
-          aspectRatio: 1,
-          child: Container(
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.secondary,
-              borderRadius: BorderRadius.circular(12)
-            ),
-
-            width: double.infinity,
-            padding: const EdgeInsets.all(25),
-            child: Image.asset(product.imagePath))
-        ),
-
-        const SizedBox(height: 25),
-      
-        //name 
-        Text(product.name , 
-        
-        style: const TextStyle(fontWeight: FontWeight.bold , fontSize: 20 ,),),
-
-       const SizedBox(height: 10),
-        //product description
-        Text(product.description , 
-        style: TextStyle(color: Theme.of(context).colorScheme.inversePrimary),),
-          ],
-        ),
-     
-
-        //product price + add to cart button
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text('\₹' + product.price.toStringAsFixed(2)),
-
-            //add to cart button
-            Container(
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.secondary,
-                borderRadius: BorderRadius.circular(12)
+            ClipRRect(
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+              child: Image.asset(
+                product.imagePath,
+                height: 300, // Increased from 250 to 300 for larger images
+                width: double.infinity,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) =>
+                    const Icon(Icons.error, size: 50),
               ),
-              child: IconButton(onPressed : () => addToCart(context),
-               icon: const Icon(Icons.add) ),
-            )
-
+            ),
+            Padding(
+              padding: const EdgeInsets.all(15),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    product.name,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  Text(
+                    product.description,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        '₹${product.price.toStringAsFixed(2)}',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
+                      ElevatedButton(
+                        onPressed: () => addToCart(context),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Theme.of(context).colorScheme.primary,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        ),
+                        child: const Text("Add to Cart", style: TextStyle(color: Colors.white)),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
           ],
-        )
-
-      ],
-    ),
-   );
+        ),
+      ),
+    );
   }
 }

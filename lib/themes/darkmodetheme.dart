@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 
-final ThemeData lightMode = ThemeData(
-  brightness: Brightness.light,
+final ThemeData darkMode = ThemeData(
+  brightness: Brightness.dark,
   colorScheme: ColorScheme.fromSeed(
     seedColor: Colors.blue,
-    background: Colors.grey[100],
-    surface: Colors.white,
-    primary: Colors.blue[700]!,
-    secondary: Colors.blue[200]!,
-    onBackground: Colors.black87,
-    onSurface: Colors.black87,
-    inversePrimary: Colors.blue[900]!,
+    brightness: Brightness.dark,
+    background: Colors.grey[900]!,
+    surface: Colors.grey[800]!,
+    primary: Colors.blue[300]!,
+    secondary: Colors.blue[700]!,
+    onBackground: Colors.white,
+    onSurface: Colors.white,
+    inversePrimary: Colors.blue[100]!,
   ),
   textTheme: const TextTheme(
     headlineLarge: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
@@ -22,5 +23,4 @@ final ThemeData lightMode = ThemeData(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
     ),
   ),
-
 );

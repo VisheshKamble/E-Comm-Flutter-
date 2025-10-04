@@ -18,6 +18,13 @@ class MyButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.primary,
           borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.2),
+              blurRadius: 8,
+              offset: const Offset(0, 4),
+            ),
+          ],
         ),
         padding : const  EdgeInsets.all(25),
         child: child,
@@ -25,4 +32,3 @@ class MyButton extends StatelessWidget {
     );
   }
 }
-
